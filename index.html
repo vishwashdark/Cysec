@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISO 27001:2022 / 27002 Controls</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts --><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            dark: '#0f172a',
+                            light: '#1e293b',
+                            accent: '#10b981', // Emerald green
+                            blue: '#3b82f6',
+                            yellow: '#eab308',
+                            purple: '#a855f7',
+                            text: '#e2e8f0'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #0b1120; /* Deep dark blue/black */
+            color: #e2e8f0;
+            background-image: 
+                linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #10b981; 
+        }
+
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .control-card {
+            transition: all 0.3s ease;
+        }
+        .control-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+        }
+
+        /* Theme specific hovers */
+        .hover-tech:hover { border-color: #10b981; box-shadow: 0 0 15px rgba(16, 185, 129, 0.2); }
+        .hover-org:hover { border-color: #3b82f6; box-shadow: 0 0 15px rgba(59, 130, 246, 0.2); }
+        .hover-people:hover { border-color: #eab308; box-shadow: 0 0 15px rgba(234, 179, 8, 0.2); }
+        .hover-phys:hover { border-color: #a855f7; box-shadow: 0 0 15px rgba(168, 85, 247, 0.2); }
+
+        /* Utility for fade-in animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .sticky-nav-active {
+            border-bottom: 2px solid #10b981;
+            color: #10b981;
+        }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden">
+
+    <!-- Navigation --><nav class="fixed w-full z-50 glass-panel border-b border-slate-700 backdrop-blur-xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <!-- Logo in Nav --><a href="#hero" class="flex items-center">
+                        <img src="Picture1.png" alt="Tridiagonal.ai Logo" class="h-8 md:h-9">
+                    </a>
+                </div>
+                <!-- Desktop Menu --><div class="hidden lg:block">
+                    <div class="ml-10 flex items-baseline space-x-1">
+                        <a href="#overview" class="hover:text-white px-3 py-2 rounded-md text-xs font-medium transition uppercase tracking-wider">Overview</a>
+                        <a href="#theme-org" class="hover:text-cyber-blue px-3 py-2 rounded-md text-xs font-medium transition uppercase tracking-wider">Organizational</a>
+                        <a href="#theme-people" class="hover:text-cyber-yellow px-3 py-2 rounded-md text-xs font-medium transition uppercase tracking-wider">People</a>
+                        <a href="#theme-phys" class="hover:text-cyber-purple px-3 py-2 rounded-md text-xs font-medium transition uppercase tracking-wider">Physical</a>
+                        <a href="#theme-tech" class="hover:text-cyber-accent px-3 py-2 rounded-md text-xs font-medium transition uppercase tracking-wider">Technological</a>
+                    </div>
+                </div>
+                <!-- Mobile Search Icon (placeholder) --><div class="lg:hidden">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section --><section id="hero" class="relative h-[90vh] flex items-center justify-center overflow-hidden pt-16">
+        <!-- Background Decoration --><div class="absolute top-0 left-1/2 w-96 h-96 bg-cyber-accent opacity-10 rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2"></div>
+        <div class="absolute bottom-0 right-0 w-64 h-64 bg-blue-500 opacity-10 rounded-full blur-3xl"></div>
+        
+        <div class="text-center z-10 px-4 reveal active">
+            <div class="inline-block mb-4 px-3 py-1 border border-cyber-accent rounded-full text-cyber-accent text-xs font-mono tracking-widest uppercase bg-slate-900/50">
+                ISO/IEC 27001:2022 Annex A
+            </div>
+            <!-- Logo in Hero --><img src="Picture1.png" alt="Tridiagonal.ai Logo" class="mx-auto h-20 md:h-24 mb-6">
+            
+            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-400">The 93 Security</span>
+                <span class="block text-cyber-accent mt-2">Controls</span>
+            </h1>
+            <p class="mt-4 max-w-2xl mx-auto text-xl text-slate-400">
+                Complete breakdown of Organizational, People, Physical, and Technological controls.
+            </p>
+            
+            <div class="mt-10 flex justify-center gap-4">
+                <a href="#controls-container" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-slate-900 bg-cyber-accent hover:bg-emerald-400 transition duration-300 shadow-[0_0_20px_rgba(16,185,129,0.3)]">
+                    Start Presentation
+                    <i class="fa-solid fa-play ml-2 text-xs"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- The 4 Themes Overview --><section id="overview" class="py-20 bg-slate-900 border-y border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">The 4 Control Themes</h2>
+                <p class="text-slate-400">Click a category to jump to its controls.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- Org Card --><a href="#theme-org" class="block group">
+                    <div class="glass-panel p-6 rounded-xl group-hover:bg-slate-800 transition duration-300 border-t-4 border-t-cyber-blue h-full">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="p-3 bg-cyber-blue/20 rounded-lg text-cyber-blue">
+                                <i class="fa-solid fa-sitemap text-xl"></i>
+                            </div>
+                            <span class="text-4xl font-bold text-white group-hover:scale-110 transition">37</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-cyber-blue transition">Organizational</h3>
+                        <p class="text-sm text-slate-400">Policies & Procedures (Theme 5)</p>
+                    </div>
+                </a>
+
+                <!-- People Card --><a href="#theme-people" class="block group">
+                    <div class="glass-panel p-6 rounded-xl group-hover:bg-slate-800 transition duration-300 border-t-4 border-t-cyber-yellow h-full">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="p-3 bg-cyber-yellow/20 rounded-lg text-cyber-yellow">
+                                <i class="fa-solid fa-users text-xl"></i>
+                            </div>
+                            <span class="text-4xl font-bold text-white group-hover:scale-110 transition">8</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-cyber-yellow transition">People</h3>
+                        <p class="text-sm text-slate-400">HR & Training (Theme 6)</p>
+                    </div>
+                </a>
+
+                <!-- Physical Card --><a href="#theme-phys" class="block group">
+                    <div class="glass-panel p-6 rounded-xl group-hover:bg-slate-800 transition duration-300 border-t-4 border-t-cyber-purple h-full">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="p-3 bg-cyber-purple/20 rounded-lg text-cyber-purple">
+                                <i class="fa-solid fa-building-lock text-xl"></i>
+                            </div>
+                            <span class="text-4xl font-bold text-white group-hover:scale-110 transition">14</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-cyber-purple transition">Physical</h3>
+                        <p class="text-sm text-slate-400">Environment & Hardware (Theme 7)</p>
+                    </div>
+                </a>
+
+                <!-- Tech Card --><a href="#theme-tech" class="block group">
+                    <div class="glass-panel p-6 rounded-xl group-hover:bg-slate-800 transition duration-300 border-t-4 border-t-cyber-accent h-full shadow-[0_0_20px_rgba(16,185,129,0.05)]">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="p-3 bg-cyber-accent/20 rounded-lg text-cyber-accent">
+                                <i class="fa-solid fa-microchip text-xl"></i>
+                            </div>
+                            <span class="text-4xl font-bold text-white group-hover:scale-110 transition">34</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-cyber-accent transition">Technological</h3>
+                        <p class="text-sm text-slate-400">IT & Cyber Systems (Theme 8)</p>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Global Search & Controls Container --><div id="controls-container" class="relative pb-20">
+        
+        <!-- Sticky Search Header --><div class="sticky top-16 z-40 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 py-4 shadow-lg">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="text-sm text-slate-400 font-mono">
+                    Filter all 93 controls
+                </div>
+                <div class="w-full md:w-1/2 relative">
+                    <i class="fa-solid fa-search absolute left-3 top-3 text-slate-500"></i>
+                    <input type="text" id="searchInput" placeholder="Search by name, e.g., 'Cloud', 'Policy', 'Cabling'..." 
+                        class="w-full bg-slate-800 border border-slate-700 text-white rounded-lg pl-10 pr-4 py-2 focus:outline-none focus:border-cyber-accent focus:ring-1 focus:ring-cyber-accent transition">
+                </div>
+            </div>
+        </div>
+
+        <!-- Dynamic Content Injected Here --><div id="mainContent" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 space-y-20">
+            <!-- Sections will be generated by JS --></div>
+        
+        <!-- No Results Message --><div id="noResults" class="hidden text-center py-20">
+            <i class="fa-solid fa-circle-exclamation text-4xl text-slate-600 mb-4"></i>
+            <p class="text-xl text-slate-500">No controls found matching your search.</p>
+        </div>
+    </div>
+
+    <!-- Footer --><footer class="bg-slate-900 border-t border-slate-800 py-12 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-slate-500 text-sm mb-4">Cyber Security Presentation Resource</p>
+            <div class="text-cyber-accent font-mono text-lg">ISO/IEC 27001:2022 COMPLIANT</div>
+            <p class="mt-8 text-xs text-slate-600">&copy; 2025 Tridiagonal AI</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- DATASETS ---
+
+        // Theme 5: Organizational (37 controls)
+        const orgControls = [
+            "Policies for information security", "Information security roles and responsibilities", "Segregation of duties", "Management responsibilities", 
+            "Contact with authorities", "Contact with special interest groups", "Threat intelligence", "Information security in project management", 
+            "Inventory of information and other associated assets", "Acceptable use of information and other associated assets", "Return of assets", 
+            "Classification of information", "Labelling of information", "Information transfer", "Access control", "Identity management", 
+            "Authentication information", "Access rights", "Information security in supplier relationships", "Addressing information security within supplier agreements", 
+            "Managing information security in the ICT supply chain", "Monitoring, review and change management of supplier services", "Information security for cloud services", 
+            "Information security incident management planning and preparation", "Assessment and decision on information security events", "Response to information security incidents", 
+            "Learning from information security incidents", "Collection of evidence", "Information security during disruption", "ICT readiness for business continuity", 
+            "Legal, statutory, regulatory and contractual requirements", "Intellectual property rights", "Protection of records", "Privacy and protection of PII", 
+            "Independent review of information security", "Compliance with policies, rules and standards for information security", "Documented operating procedures"
+        ];
+
+        // Theme 6: People (8 controls)
+        const peopleControls = [
+            "Screening", "Terms and conditions of employment", "Information security awareness, education and training", "Disciplinary process", 
+            "Responsibilities after termination or change of employment", "Confidentiality or non-disclosure agreements", "Remote working", "Information security event reporting"
+        ];
+
+        // Theme 7: Physical (14 controls)
+        const physControls = [
+            "Physical security perimeters", "Physical entry", "Securing offices, rooms and facilities", "Physical security monitoring", 
+            "Protecting against physical and environmental threats", "Working in secure areas", "Clear desk and clear screen", "Equipment siting and protection", 
+            "Security of assets off-premises", "Storage media", "Supporting utilities", "Cabling security", "Equipment maintenance", "Secure disposal or re-use of equipment"
+        ];
+
+        // Theme 8: Technological (34 controls)
+        const techControls = [
+            "User Endpoint Devices", "Privileged Access Rights", "Information Access Restriction", "Access to Source Code", "Secure Authentication", 
+            "Capacity Management", "Protection Against Malware", "Management of Technical Vulnerabilities", "Configuration Management", "Information Deletion", 
+            "Data Masking", "Data Leakage Prevention", "Information Backup", "Redundancy of Information Processing Facilities", "Logging", "Monitoring Activities", 
+            "Clock Synchronization", "Use of Privileged Utility Programs", "Installation of Software on Operational Systems", "Networks Security", 
+            "Security of Network Services", "Segregation of Networks", "Web filtering", "Use of Cryptography", "Secure Development Life Cycle", 
+            "Application Security Requirements", "Secure System Architecture and Engineering Principles", "Secure Coding", "Security Testing in Development and Acceptance", 
+            "Outsourced Development", "Separation of Development, Test and Production Environments", "Change Management", "Test Information", 
+            "Protection of Information Systems During Audit Testing"
+        ];
+
+        // Configuration Object
+        const themes = [
+            {
+                id: "theme-org",
+                title: "Organizational Controls",
+                subtitle: "Theme 5 (37 Controls)",
+                controls: orgControls,
+                color: "text-cyber-blue",
+                borderColor: "border-cyber-blue",
+                hoverClass: "hover-org",
+                icon: "fa-sitemap",
+                prefix: "5."
+            },
+            {
+                id: "theme-people",
+                title: "People Controls",
+                subtitle: "Theme 6 (8 Controls)",
+                controls: peopleControls,
+                color: "text-cyber-yellow",
+                borderColor: "border-cyber-yellow",
+                hoverClass: "hover-people",
+                icon: "fa-users",
+                prefix: "6."
+            },
+            {
+                id: "theme-phys",
+                title: "Physical Controls",
+                subtitle: "Theme 7 (14 Controls)",
+                controls: physControls,
+                color: "text-cyber-purple",
+                borderColor: "border-cyber-purple",
+                hoverClass: "hover-phys",
+                icon: "fa-building-lock",
+                prefix: "7."
+            },
+            {
+                id: "theme-tech",
+                title: "Technological Controls",
+                subtitle: "Theme 8 (34 Controls)",
+                controls: techControls,
+                color: "text-cyber-accent",
+                borderColor: "border-cyber-accent",
+                hoverClass: "hover-tech",
+                icon: "fa-microchip",
+                prefix: "8."
+            }
+        ];
+
+        // --- ICON HELPER ---
+        function getIcon(title) {
+            const t = title.toLowerCase();
+            // Tech
+            if (t.includes('network') || t.includes('web')) return 'fa-network-wired';
+            if (t.includes('authentication') || t.includes('password')) return 'fa-fingerprint';
+            if (t.includes('code') || t.includes('development') || t.includes('software')) return 'fa-code';
+            if (t.includes('malware') || t.includes('virus')) return 'fa-bug';
+            if (t.includes('crypto')) return 'fa-file-shield';
+            if (t.includes('log') || t.includes('monitor')) return 'fa-eye';
+            // Phys
+            if (t.includes('physical') || t.includes('entry') || t.includes('offices')) return 'fa-door-closed';
+            if (t.includes('cabling')) return 'fa-plug';
+            if (t.includes('clear desk')) return 'fa-desktop';
+            if (t.includes('disposal')) return 'fa-trash-can';
+            // People
+            if (t.includes('screening') || t.includes('employment')) return 'fa-user-check';
+            if (t.includes('remote')) return 'fa-house-laptop';
+            if (t.includes('training') || t.includes('awareness')) return 'fa-graduation-cap';
+            // Org
+            if (t.includes('policy') || t.includes('policies')) return 'fa-file-contract';
+            if (t.includes('roles')) return 'fa-id-badge';
+            if (t.includes('cloud')) return 'fa-cloud';
+            if (t.includes('supplier')) return 'fa-truck-fast';
+            if (t.includes('incident')) return 'fa-triangle-exclamation';
+            if (t.includes('asset')) return 'fa-boxes-stacked';
+            if (t.includes('privacy') || t.includes('pii')) return 'fa-user-shield';
+
+            return 'fa-shield-halved';
+        }
+
+        const mainContent = document.getElementById('mainContent');
+        const searchInput = document.getElementById('searchInput');
+        const noResults = document.getElementById('noResults');
+
+        // --- RENDER FUNCTION ---
+        function renderAll(filterText = '') {
+            mainContent.innerHTML = '';
+            let globalMatchCount = 0;
+
+            themes.forEach(theme => {
+                // Filter controls for this theme
+                const matchingControls = theme.controls.filter(c => c.toLowerCase().includes(filterText.toLowerCase()));
+                
+                // If controls exist or we are not filtering (showing empty sections looks bad, so only show if matches found OR no filter)
+                // Actually, better UX: show section header if matches found. Hide section if no matches.
+                if (matchingControls.length > 0) {
+                    globalMatchCount += matchingControls.length;
+
+                    // Section Container
+                    const section = document.createElement('section');
+                    section.id = theme.id;
+                    section.className = 'reveal'; // Animation class
+
+                    // Section Header
+                    const header = `
+                        <div class="flex items-end mb-6 border-b border-slate-800 pb-4">
+                            <div class="mr-4 p-3 rounded-lg bg-slate-800 ${theme.color}">
+                                <i class="fa-solid ${theme.icon} text-2xl"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-2xl md:text-3xl font-bold text-white">${theme.title}</h2>
+                                <p class="text-slate-400 font-mono text-sm">${theme.subtitle}</p>
+                            </div>
+                        </div>
+                    `;
+                    section.innerHTML = header;
+
+                    // Grid Container
+                    const grid = document.createElement('div');
+                    grid.className = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4';
+
+                    // Cards
+                    matchingControls.forEach((control, idx) => {
+                        // Find original index for correct numbering even when filtered
+                        const originalIndex = theme.controls.indexOf(control); 
+                        const card = document.createElement('div');
+                        card.className = `control-card glass-panel p-4 rounded-lg border border-slate-700 flex items-start space-x-4 ${theme.hoverClass}`;
+                        
+                        const iconClass = getIcon(control);
+
+                        card.innerHTML = `
+                            <div class="flex-shrink-0 mt-1">
+                                <i class="fa-solid ${iconClass} ${theme.color} opacity-80"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-slate-500 font-mono mb-0.5">TC-${theme.prefix}${originalIndex + 1}</div>
+                                <h3 class="text-slate-200 text-sm font-semibold leading-snug">${control}</h3>
+                            </div>
+                        `;
+                        grid.appendChild(card);
+                    });
+
+                    section.appendChild(grid);
+                    mainContent.appendChild(section);
+                }
+            });
+
+            if (globalMatchCount === 0) {
+                noResults.classList.remove('hidden');
+            } else {
+                noResults.classList.add('hidden');
+                setTimeout(checkScroll, 50);
+            }
+        }
+
+        // Initial Render
+        renderAll();
+
+        // Search Listener
+        searchInput.addEventListener('input', (e) => {
+            renderAll(e.target.value);
+        });
+
+        // Scroll Animation
+        function checkScroll() {
+            const reveals = document.querySelectorAll('.reveal');
+            const windowHeight = window.innerHeight;
+            const elementVisible = 50;
+
+            reveals.forEach((reveal) => {
+                const elementTop = reveal.getBoundingClientRect().top;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveal.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', checkScroll);
+        checkScroll();
+
+    </script>
+</body>
+</html>
